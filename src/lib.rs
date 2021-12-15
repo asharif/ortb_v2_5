@@ -1,4 +1,4 @@
-mod dto;
+pub mod dto;
 #[cfg(test)]
 mod req_tests;
 #[cfg(test)]
