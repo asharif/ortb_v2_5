@@ -44,12 +44,9 @@ jobs:
           NEW_VER="${VER_PREF}.$GITHUB_RUN_NUMBER"
           sed -e "s/^${FULL_VER_STR}/version = \"$NEW_VER\"/" Cargo.toml > Cargo.toml.new
           mv Cargo.toml.new Cargo.toml
-          git add Cargo.toml
-          git commit -m "updated patch number"
-          git push origin main
       - name: Login to crates.io
         run: |
           cargo login ${{ secrets.CRATE_IO_TOKEN }}
       - name: Publish to crates.io
         run: |
-          cargo publish
+          cargo publish --allow-dirty
