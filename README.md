@@ -1,3 +1,4 @@
+![example workflow](https://github.com/asharif/ortb-v2_5/actions/workflows/main.yml/badge.svg)
 # ortb-v2_5
 This is a rustlang implementation of OpenRTB 2.5.
 
