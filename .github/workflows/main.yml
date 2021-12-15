@@ -1,0 +1,23 @@
+name: CI/CD
+
+on:
+  push:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Pull master
+        uses: actions/checkout@master
+      - name: Setup rustlang toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+            toolchain: 1.56.1
+            override: true
+            components: rustfmt, clippy
+      - name: Build binary
+        run: |
+          make build-linux
+      - name: Run unit tests
+        run: |
+          make unit-test
