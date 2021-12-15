@@ -22,3 +22,31 @@ jobs:
       - name: Run unit tests
         run: |
           make unit-test
+  publish-crates-io:
+    if: github.ref == 'refs/heads/master'
+    needs: build-and-test
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Pull master
+        uses: actions/checkout@master
+      - name: Setup rustlang toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+            toolchain: 1.56.1
+            target: x86_64-unknown-linux-musl
+            override: true
+            components: rustfmt, clippy
+      - name: Update patch version
+        run: |
+          FULL_VER_STR=$(grep -E "^version" Cargo.toml)
+          VER=$(echo $FULL_VER_STR | sed -e 's/"//g' | sed -e 's/version = //g')
+          VER_PREF=$(echo ${VER%.*})
+          NEW_VER="${VER_PREF}.$GITHUB_RUN_NUMBER"
+          sed -e "s/^${FULL_VER_STR}/version = \"$NEW_VER\"/" Cargo.toml > Cargo.toml.new
+          mv Cargo.toml.new Cargo.toml
+      - name: Login to crates.io
+        run: |
+          cargo login ${{ secrets.CRATE_IO_TOKEN }}
+      - name: Publish to crates.io
+        run: |
+          cargo publish
