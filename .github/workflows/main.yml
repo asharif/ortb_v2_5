@@ -7,8 +7,8 @@ jobs:
   build-and-test:
     runs-on: ubuntu-20.04
     steps:
-      - name: Pull master
-        uses: actions/checkout@master
+      - name: Pull main
+        uses: actions/checkout@main
       - name: Setup rustlang toolchain
         uses: actions-rs/toolchain@v1
         with:
@@ -23,12 +23,12 @@ jobs:
         run: |
           make unit-test
   publish-crates-io:
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     needs: build-and-test
     runs-on: ubuntu-20.04
     steps:
-      - name: Pull master
-        uses: actions/checkout@master
+      - name: Pull main
+        uses: actions/checkout@main
       - name: Setup rustlang toolchain
         uses: actions-rs/toolchain@v1
         with:
