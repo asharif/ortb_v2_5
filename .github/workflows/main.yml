@@ -18,7 +18,7 @@ jobs:
             components: rustfmt, clippy
       - name: Build binary
         run: |
-          make build-linux
+          make build-debug-linux
       - name: Run unit tests
         run: |
           make unit-test
