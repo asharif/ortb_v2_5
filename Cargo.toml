@@ -5,7 +5,7 @@ version = "0.1.0"
 edition = "2021"
 readme = "README.md"
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/asharif/ortb-v2_5"
+repository = "https://github.com/asharif/ortb_v2_5"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
